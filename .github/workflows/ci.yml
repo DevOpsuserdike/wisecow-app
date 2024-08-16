@@ -1,5 +1,5 @@
 name: GitHub Actions
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is creating CICD Pipeline
 on: [push]
 jobs:
   ci:
@@ -21,7 +21,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: siddheshdike/cowsay:latest
-    
+
       
 
 
