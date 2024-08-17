@@ -1,6 +1,13 @@
 name: GitHub Actions
 run-name: ${{ github.actor }} is creating CICD Pipeline
-on: [push]
+on:
+  workflow_dispatch:
+      inputs:
+        tag_artifacts:
+          description: 'Tag artifacts'
+          required: true
+          default: 'latest'
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -20,7 +27,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: siddheshdike/cowsay:latest
+          tags: siddheshdike/cowsay:${{ github.event.inputs.tag_artifacts }}
   cd:
     needs: ci
     runs-on: ubuntu-latest
@@ -61,8 +68,9 @@ jobs:
       
       - name: deployment of services
         run: |
+          kubectl create configmap special-config --from-literal tags=${{ github.event.inputs.tag_artifacts }}
           kubectl apply -f kubernetes/service.yml
-          kubectl apply -f kubernetes/deployment.yml
+          kubectl apply -f kubernetes/deployment.yml 
 
       - name : list pods
         run: kubectl get pods -o wide
