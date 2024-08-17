@@ -22,6 +22,7 @@ jobs:
           push: true
           tags: siddheshdike/cowsay:latest
   cd:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -60,8 +61,14 @@ jobs:
       
       - name: deployment of services
         run: |
-          pwd
-          ls -la
+          kubectl apply -f kubernetes/service.yml
+          kubectl apply -f kubernetes/deployment.yml
+
+      - name : list pods
+        run: kubectl get pods
+      - name : list svc
+        run: kubectl get svc
+
 
 
       
