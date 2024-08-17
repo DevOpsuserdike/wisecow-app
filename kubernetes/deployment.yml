@@ -11,18 +11,16 @@ spec:
     spec:
       containers:
       - name: cowsay
-        image: siddheshdike/cowsay:$(tag)
+        env:
+          - name: tagartifacts
+              valueFrom:
+                configMapKeyRef:
+                  name: special-config
+                  key: tags
+        image: siddheshdike/cowsay:"$(tagartifacts)"
         ports:
         - containerPort: 4499
-        env:
-        # Define the environment variable
-        - name: tag
-          valueFrom:
-            configMapKeyRef:
-              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-              name: special-config
-              # Specify the key associated with the value
-              key: tags
+        
   replicas: 1
   selector:
     matchLabels:
