@@ -65,7 +65,7 @@ jobs:
           kubectl apply -f kubernetes/deployment.yml
 
       - name : list pods
-        run: kubectl get pods
+        run: kubectl get pods -o wide
       - name : list svc
         run: kubectl get svc
 
