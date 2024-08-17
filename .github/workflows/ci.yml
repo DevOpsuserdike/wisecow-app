@@ -65,13 +65,21 @@ jobs:
 
       - name : list nodes
         run: kubectl get nodes
-      
-      - name: deployment of services
+
+      - name : install helm
+        uses: azure/setup-helm@v4.2.0
+        id: install
+
+      - name : run help environmeent
         run: |
-          kubectl delete configmap special-config
-          kubectl create configmap special-config --from-literal tags=${{ github.event.inputs.tag_artifacts }}
-          kubectl apply -f kubernetes/service.yml
-          kubectl apply -f kubernetes/deployment.yml 
+            helm install webapp helm/app
+      
+#      - name: deployment of services
+#        run: |
+#          kubectl delete configmap special-config
+#          kubectl create configmap special-config --from-literal tags=${{ github.event.inputs.tag_artifacts }}
+#          kubectl apply -f kubernetes/service.yml
+#          kubectl apply -f kubernetes/deployment.yml 
 
       - name : list pods
         run: kubectl get pods -o wide

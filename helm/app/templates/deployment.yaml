@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deploymentss
+spec:
+  selector:
+    matchLabels:
+      app: cowsay
+  replicas: 1
+  template:
+    metadata:
+      name: cowsay
+      labels:
+        app: cowsay
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+              protocol: TCP
+
+
