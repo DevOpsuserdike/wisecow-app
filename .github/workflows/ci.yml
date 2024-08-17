@@ -68,6 +68,7 @@ jobs:
       
       - name: deployment of services
         run: |
+          kubectl delete configmap special-config
           kubectl create configmap special-config --from-literal tags=${{ github.event.inputs.tag_artifacts }}
           kubectl apply -f kubernetes/service.yml
           kubectl apply -f kubernetes/deployment.yml 
