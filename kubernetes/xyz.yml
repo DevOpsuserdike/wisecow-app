@@ -11,18 +11,12 @@ spec:
     spec:
       containers:
       - name: cowsay
-        env:
-        - name: tagartifacts
-          value: "latest"
-
-        - name: value
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: tags
-        image: siddheshdike/cowsay
+        image: $DEMO_GREETING
         ports:
         - containerPort: 4499
+        env:
+        - name: DEMO_GREETING
+          value: siddheshdike/cowsay:latest
         
   replicas: 1
   selector:
