@@ -72,7 +72,7 @@ jobs:
 
       - name : run help environmeent
         run: |
-            helm install webapp helm/app
+            helm install webapp helm/app --set image.tag=${{ github.event.inputs.tag_artifacts }}
       
 #      - name: deployment of services
 #        run: |
