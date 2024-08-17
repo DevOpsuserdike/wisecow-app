@@ -12,11 +12,14 @@ spec:
       containers:
       - name: cowsay
         env:
-          - name: tagartifacts
-              valueFrom:
-                configMapKeyRef:
-                  name: special-config
-                  key: tags
+        - name: tagartifacts
+          value: "latest"
+
+        - name: value
+          valueFrom:
+              configMapKeyRef:
+                name: special-config
+                key: tags
         image: siddheshdike/cowsay:"$(tagartifacts)"
         ports:
         - containerPort: 4499
