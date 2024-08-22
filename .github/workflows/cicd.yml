@@ -72,7 +72,12 @@ jobs:
 
       - name : run help environmeent
         run: |
-            helm install webapp helm/app --set image.tag=${{ github.event.inputs.tag_artifacts }}
+            export tag=${{ github.event.inputs.tag_artifacts }}
+            kubectl delete secret tls hello-app-tls
+            kubectl create secret tls hello-app-tls --key root.key --cert root.crt
+            helm install webapp helm/app --set image.tag=$tag
+#            kubectl apply -f kubernetes/ingress.yml
+            
       
 #      - name: deployment of services
 #        run: |
