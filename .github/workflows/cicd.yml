@@ -8,6 +8,11 @@ on:
           required: true
           default: 'latest'
 
+        clustername:
+          description: 'cluster name'
+          required: true
+          default: 'ekscluster'
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -61,7 +66,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRETKEY }}
         
       - name: configure aws cluster
-        run: aws eks update-kubeconfig --region us-west-2 --name ekscluster
+        run: aws eks update-kubeconfig --region us-west-2 --name ${{ github.event.inputs.clustername }}
 
       - name : list nodes
         run: kubectl get nodes
