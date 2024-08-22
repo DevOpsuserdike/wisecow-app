@@ -73,6 +73,7 @@ jobs:
       - name : run help environmeent
         run: |
             export tag=${{ github.event.inputs.tag_artifacts }}
+            kubectl create secret hello-app-tls
             kubectl delete secret hello-app-tls
             kubectl create secret hello-app-tls --key root.key --cert root.crt
             helm install webapp helm/app --set image.tag=$tag
@@ -90,6 +91,13 @@ jobs:
         run: kubectl get pods -o wide
       - name : list svc
         run: kubectl get svc
+
+      - name : list ingress
+        run: kubectl get ingress
+
+
+
+      
 
 
 
