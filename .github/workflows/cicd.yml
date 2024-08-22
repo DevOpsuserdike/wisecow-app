@@ -61,7 +61,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRETKEY }}
         
       - name: configure aws cluster
-        run: aws eks update-kubeconfig --region us-west-2 --name kub_cluster
+        run: aws eks update-kubeconfig --region us-west-2 --name ekscluster
 
       - name : list nodes
         run: kubectl get nodes
