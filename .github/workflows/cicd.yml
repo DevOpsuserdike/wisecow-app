@@ -74,7 +74,7 @@ jobs:
         run: |
             export tag=${{ github.event.inputs.tag_artifacts }}
             kubectl delete secrets hello-app-tls
-            kubectl create secret tls hello-app-tls --key root.key --cert root.crt
+            kubectl create secret tls hello-app-tls --key helm/app/root.key --cert helm/app/root.crt
             helm install webapp helm/app --set image.tag=$tag
 #            kubectl apply -f kubernetes/ingress.yml
             
